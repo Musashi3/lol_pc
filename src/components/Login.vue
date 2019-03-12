@@ -44,6 +44,7 @@ export default {
            this.axios.post(url,this.qs.stringify(user)).then(result=>{
                if(result.data.data==1){
                    alert("登录成功");
+                   sessionStorage.setItem("userData",JSON.stringify(user));
                    this.$router.push("/");
                }else{
                    alert("用户名或密码错误！ 请重新输入！")
@@ -67,12 +68,14 @@ export default {
         position:absolute;
         left:70rem;
         top:12rem;
+        border-radius:2rem;
     }
     .loginForm input{
         width:20rem!important;
         margin:1.5rem;
         padding:0 2rem!important;
         font-size:14px;
+        border-radius:2rem!important;
     }
     .loginForm .loginBtn{
         margin:2.2rem;

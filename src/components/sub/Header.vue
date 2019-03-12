@@ -4,9 +4,7 @@
         <div class="header-item">
             <img src="../../../static/img/index/logo.png">
             <div class="header_menu">
-                <router-link to="/login"> 
-                <span style="color:#ccc">您好，请登录</span>
-                </router-link>
+                <span style="color:#ccc" @click="jump">{{isloginText}}</span>
                 <div class="item_buycar">
                     <img src="../../../static/img/index/buy_car.png" alt="">
                     <span>购物车</span>
@@ -28,59 +26,17 @@
                         商城首页
                     </router-link>    
                     </li>
-                    <li @mouseenter="enter(1)" @mouseleave="leave">
-                        雕塑手办
-                        <div class="nav-div" :class="{show:show==1}">
+                    <li @mouseenter="enter(i+1)" @mouseleave="leave" v-for="(item,i) of navlist" :key="i">
+                        <router-link to="/product">
+                            {{item.nName}}
+                        </router-link>
+                        <div class="nav-div" :class="{show:show==i+1}">
                             <ul>
-                                <li>大型雕塑</li>
-                                <li>中型雕塑</li>
-                                <li>限定款手办</li>
-                                <li>手办</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li @mouseenter="enter(2)" @mouseleave="leave">
-                        毛绒玩偶
-                        <div class="nav-div" :class="{show:show==2}">
-                            <ul>
-                                <li>玩偶</li>
-                                <li>帽子</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li @mouseenter="enter(3)" @mouseleave="leave">
-                        男女服饰
-                        <div class="nav-div" :class="{show:show==3}">
-                            <ul>
-                                <li>卫衣夹克</li>
-                                <li>T恤</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li @mouseenter="enter(4)" @mouseleave="leave">
-                        LPL周边
-                        <div class="nav-div" :class="{show:show==4}">
-                            <ul>
-                                <li>英雄海报</li>
-                                <li>画册</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li @mouseenter="enter(5)" @mouseleave="leave">
-                        珠宝首饰
-                        <div class="nav-div" :class="{show:show==5}">
-                            <ul>
-                                <li>队服T恤</li>
-                                <li>队服裤子</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li @mouseenter="enter(6)" @mouseleave="leave">
-                        其他
-                        <div class="nav-div" :class="{show:show==6}">
-                            <ul>
-                                <li>鼠标垫</li>
-                                <li>其他</li>
+                                <li v-for="(item,i) of item.list" :key="i">
+                                    <router-link to="javascript:;">
+                                    {{item.item}}
+                                    </router-link>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -97,14 +53,16 @@
 export default {
     data(){
         return {
-            show:0,
+            isloginText:"请登录",
+            user:"",
+            show:"",
             navlist:[
-                {nName:"商城首页"},
-                {nName:"雕塑手办",list:[{item:"大型雕塑"},{item:"中型雕塑"},{item:"限定款手办"},{item:"手办"}]},
-                {nName:"毛绒玩偶"},
-                {nName:"男女服饰"},
-                {nName:"LPL周边"},
-                {nName:"其他"}
+                {nName:"雕塑手办",list:[{item:"大型雕塑"},{item:"中型雕塑"},{item:"限定手办"},{item:"手办"}]},
+                {nName:"毛绒玩偶",list:[{item:"玩偶"},{item:"帽子"}]},
+                {nName:"男女服饰",list:[{item:"卫衣夹克"},{item:"T恤"}]},
+                {nName:"LPL周边",list:[{item:"英雄海报"},{item:"画册"}]},
+                {nName:"珠宝首饰",list:[{item:"队服T恤"},{item:"队服裤子"}]},
+                {nName:"其他",list:[{item:"鼠标垫"},{item:"其他"}]}
                 ]
         }
     },
@@ -114,8 +72,28 @@ export default {
         },
         leave(){
             this.show="";
+        },
+        isLogin(){
+         //this.watchStorage("uname")
+         var wS=this.watchStorage
+         if(wS("userData").uname!=undefined){
+            this.isloginText="欢迎您！"+wS("userData").uname;
+         }
+         else{
+             this.isloginText="请登录"
+         }
+        },
+        jump(){
+            if(this.isloginText=="请登录"){
+                this.$router.push("/login")
+            }else{
+                this.$router.push("/user")
+            }
         }
-    }
+    },
+    watch:{
+        "$route":'isLogin'
+    },
 }
 </script>
 <style>
@@ -162,13 +140,15 @@ export default {
     }
     .nav-item ul li{
         margin:0 15px;
-        color:#fff;
         font-size:17px;
         padding:10px;
         position: relative;
     }
-    .nav-item ul li:hover{
-        color:orangered;
+    .nav-item ul li a{
+        color:#fff;
+    }
+    .nav-item ul li a:hover{
+        color:orangered!important;
         font-weight: bolder;
         cursor: pointer;
     
