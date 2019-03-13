@@ -13,6 +13,5 @@ export default new Router({
     {path:"/Home",component:Home},
     {path:"/login",component:Login},
     {path:"/register",component:Register},
-    {path:"/user",component:User}
-  ]
+    {path:"/user",component:User}]
 })
