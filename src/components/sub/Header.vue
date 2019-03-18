@@ -27,13 +27,13 @@
                     </router-link>    
                     </li>
                     <li @mouseenter="enter(i+1)" @mouseleave="leave" v-for="(item,i) of navlist" :key="i">
-                        <router-link to="/product">
+                        <router-link :to="{path:'/productList',query:{classify:item.classifay}}">
                             {{item.nName}}
                         </router-link>
                         <div class="nav-div" :class="{show:show==i+1}">
                             <ul>
                                 <li v-for="(item,i) of item.list" :key="i">
-                                    <router-link to="javascript:;">
+                                    <router-link to="">
                                     {{item.item}}
                                     </router-link>
                                 </li>
@@ -57,9 +57,9 @@ export default {
             user:"",
             show:"",
             navlist:[
-                {nName:"雕塑手办",list:[{item:"大型雕塑"},{item:"中型雕塑"},{item:"限定手办"},{item:"手办"}]},
-                {nName:"毛绒玩偶",list:[{item:"玩偶"},{item:"帽子"}]},
-                {nName:"男女服饰",list:[{item:"卫衣夹克"},{item:"T恤"}]},
+                {nName:"雕塑手办",classifay:"clay",list:[{item:"大型雕塑"},{item:"中型雕塑"},{item:"限定手办"},{item:"手办"}]},
+                {nName:"毛绒玩偶",classifay:"plush",list:[{item:"玩偶"},{item:"帽子"}]},
+                {nName:"男女服饰",classifay:"clothes",list:[{item:"卫衣夹克"},{item:"T恤"}]},
                 {nName:"LPL周边",list:[{item:"英雄海报"},{item:"画册"}]},
                 {nName:"珠宝首饰",list:[{item:"队服T恤"},{item:"队服裤子"}]},
                 {nName:"其他",list:[{item:"鼠标垫"},{item:"其他"}]}

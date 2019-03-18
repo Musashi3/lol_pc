@@ -4,6 +4,7 @@ import Home from '@/components/HelloWorld'
 import Login from '../components/Login.vue'
 import Register from '../components/Register.vue'
 import User from '../components/User.vue'
+import ProductList from '../components/ProductList.vue'
 
 Vue.use(Router)
 
@@ -13,5 +14,7 @@ export default new Router({
     {path:"/Home",component:Home},
     {path:"/login",component:Login},
     {path:"/register",component:Register},
-    {path:"/user",component:User}]
+    {path:"/user",component:User},
+    {path:"/productList",component:ProductList}
+  ]
 })
