@@ -17,9 +17,11 @@
             <h1>{{title}}</h1>
             <div class="product_item">
                 <div v-for="(item,i) of products" :key="i">
-                    <img :src="item.img_url" alt="">
-                    <p class="productTitle">{{item.title}}</p>
-                    <span class="price">￥{{parseInt(item.price).toFixed(2)}}</span>
+                    <router-link :to="{path:'/product',query:{pid:item.id,classify:classify}}">
+                        <img :src="item.img_url" alt="">
+                        <p class="productTitle">{{item.title}}</p>
+                        <span class="price">￥{{parseInt(item.price).toFixed(2)}}</span>
+                    </router-link>
                 </div>
             </div>  
         </div>
@@ -32,12 +34,13 @@ export default {
             title:"",
             leftList:[{tag:"上单"},{tag:"中单"},{tag:"ADC"},{tag:"辅助"},{tag:"打野"},{tag:"坦克"},{tag:"法师"},{tag:"射手"},{tag:"刺客"}],
             products:"",
-            pageSize:7
+            pageSize:7,
+            classify:this.$route.query.classify,
         }
     },
     methods:{
         getProcutList(){
-            var classify=this.$route.query.classify;
+            var classify=this.classify=this.$route.query.classify;
             if(classify=="clay")this.title="雕塑手办"
             else if(classify=="plush")this.title="毛绒玩偶"
             else if(classify=="clothes")this.title="男女服饰"
