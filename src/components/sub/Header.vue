@@ -4,16 +4,11 @@
         <div class="header-item">
             <img src="../../../static/img/index/logo.png">
             <div class="header_menu">
-                <div class="loginDiv" @mouseenter="isout">
-                    <span style="color:#ccc" @click="jump">{{isloginText}}</span>
-                    <div  class="loginout" :class="isloginout" @mouseout="out" @click="loginoutBtn">
-                        <span>退出登录</span>
-                    </div>
-                </div>
-                <div class="item_buycar">
-                    <img src="../../../static/img/index/buy_car.png" alt="">
-                    <span>购物车</span>
-                    <span class="carNum">0</span>
+                <span style="color:#ccc" @click="jump">{{isloginText}}</span>
+                <div class="item_buycar" @click="jumpCar">
+                        <img src="../../../static/img/index/buy_car.png" alt="">
+                        <span>购物车</span>
+                        <span class="carNum">0</span>
                 </div>
                 <div class="item_kefu">
                     <img src="../../../static/img/index/kefu.png" alt="">
@@ -68,8 +63,7 @@ export default {
                 {nName:"LPL周边",list:[{item:"英雄海报"},{item:"画册"}]},
                 {nName:"珠宝首饰",list:[{item:"队服T恤"},{item:"队服裤子"}]},
                 {nName:"其他",list:[{item:"鼠标垫"},{item:"其他"}]}
-                ],
-            isloginout:"",
+                ]
         }
     },
     methods:{
@@ -96,25 +90,8 @@ export default {
                 this.$router.push("/user")
             }
         },
-        isout(){
-            if(this.isloginText=="请登录"){
-                this.isloginout="";
-                return;
-            }
-            else{
-                this.isloginout="show";
-            }
-        },
-        out(){
-            this.isloginout="";
-        },
-        loginoutBtn(){
-            var url="http://127.0.0.1:3000/logout";
-            this.axios.get(url).then(result=>{
-                alert(result.data.msg);
-                location.reload();
-                sessionStorage.removeItem("userData");
-            })
+        jumpCar(){
+            this.$router.push("/buycar")
         }
     },
     watch:{
@@ -196,7 +173,7 @@ export default {
     }
     .show{
         display:block!important;
-        z-index:10;
+        z-index:1000;
     }
     .search input{
         width:15rem!important;
@@ -204,20 +181,5 @@ export default {
         background:#333!important;
         border:1px solid #666!important;
         margin-top:10px!important;
-    }
-    .loginDiv{
-        position:relative;
-    }
-    .loginout{
-        width:5rem;
-        height:2rem;
-        text-align:center;
-        line-height:2rem;
-        font-size:14px;
-        position:absolute;
-        background:#000;
-        top:2rem;
-        left:-0.5rem;
-        display:none;
     }
 </style>

@@ -1,4 +1,3 @@
-//引入所需的模块
 import Vue from 'vue'
 import App from './App'
 import router from './router'
@@ -29,6 +28,7 @@ import '../lib/mui/css/mui.css'
 import '../lib/mui/css/icons-extra.css'
 Vue.component(Swipe.name,Swipe);
 Vue.component(SwipeItem.name,SwipeItem);
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
